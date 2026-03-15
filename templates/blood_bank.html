@@ -1,0 +1,179 @@
+{% extends "base.html" %}
+
+{% block title %}Blood Bank & Donor Finder - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">
+                <i class="fas fa-tint me-2 text-danger"></i>Blood Bank & Donor Finder
+            </h1>
+            <p class="section-subtitle">Find blood donors and blood banks near you</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <!-- Quick Access Card -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-custom h-100">
+                    <div class="card-body p-4 text-center">
+                        <div class="mb-4">
+                            <i class="fas fa-hospital-alt fa-4x text-danger"></i>
+                        </div>
+                        <h4 class="mb-3">Indian Blood Bank Network</h4>
+                        <p class="text-muted mb-4">
+                            Access the complete database of blood banks across India. 
+                            Find verified blood banks, check availability, and connect with donors instantly.
+                        </p>
+                        <a href="https://www.indianbloodbank.com/" target="_blank" class="btn btn-danger btn-lg">
+                            <i class="fas fa-external-link-alt me-2"></i>Visit Indian Blood Bank
+                        </a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Features Card -->
+            <div class="col-lg-6 mb-4">
+                <div class="card shadow-custom h-100">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">
+                            <i class="fas fa-info-circle me-2 text-primary"></i>What You Can Do
+                        </h4>
+                        <ul class="list-unstyled">
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Search Blood Banks:</strong> Find blood banks in your city or state
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Check Availability:</strong> View real-time blood availability
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Find Donors:</strong> Connect with registered blood donors
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Register as Donor:</strong> Become a life-saving blood donor
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Emergency Requests:</strong> Post urgent blood requirement requests
+                            </li>
+                            <li class="mb-3">
+                                <i class="fas fa-check-circle text-success me-2"></i>
+                                <strong>Blood Camps:</strong> Find information about upcoming blood donation camps
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Blood Groups Info -->
+        <div class="row mt-4">
+            <div class="col-12">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4 text-center">
+                            <i class="fas fa-tint me-2"></i>Blood Group Compatibility
+                        </h4>
+                        <div class="row text-center">
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">A+</div>
+                                    <small class="text-muted">Can donate to A+, AB+</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">A-</div>
+                                    <small class="text-muted">Can donate to A+, A-, AB+, AB-</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">B+</div>
+                                    <small class="text-muted">Can donate to B+, AB+</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">B-</div>
+                                    <small class="text-muted">Can donate to B+, B-, AB+, AB-</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">AB+</div>
+                                    <small class="text-muted">Universal Recipient</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">AB-</div>
+                                    <small class="text-muted">Can donate to AB+, AB-</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">O+</div>
+                                    <small class="text-muted">Can donate to all positive</small>
+                                </div>
+                            </div>
+                            <div class="col-md-3 col-6 mb-3">
+                                <div class="blood-group-card p-3 bg-light rounded">
+                                    <div class="blood-type text-danger fw-bold fs-2">O-</div>
+                                    <small class="text-muted">Universal Donor</small>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Important Information -->
+        <div class="row mt-4">
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-custom h-100 border-danger">
+                    <div class="card-body p-4">
+                        <h5 class="text-danger mb-3">
+                            <i class="fas fa-exclamation-triangle me-2"></i>Who Can Donate Blood?
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Age: 18-65 years</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Weight: Minimum 50 kg</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Hemoglobin: Minimum 12.5 g/dL</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>Good health with no infections</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>No alcohol 24 hours before donation</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i>3 months gap between donations</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 mb-4">
+                <div class="card shadow-custom h-100 border-primary">
+                    <div class="card-body p-4">
+                        <h5 class="text-primary mb-3">
+                            <i class="fas fa-heart me-2"></i>Benefits of Blood Donation
+                        </h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Saves up to 3 lives per donation</li>
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Free health screening</li>
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Reduces risk of heart disease</li>
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Burns calories (650 per donation)</li>
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Stimulates blood cell production</li>
+                            <li class="mb-2"><i class="fas fa-star text-warning me-2"></i>Sense of social responsibility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

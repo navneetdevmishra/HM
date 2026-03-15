@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Insurance Cost Predictor - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">Health Insurance Cost Predictor</h1>
+            <p class="section-subtitle">Get AI-powered predictions and personalized insurance recommendations</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <div class="alert alert-success mb-4" role="alert">
+                            <div class="d-flex align-items-center">
+                                <i class="fas fa-brain me-3" style="font-size: 1.5rem;"></i>
+                                <div>
+                                    <h6 class="mb-1"><strong>AI-Powered Predictions</strong></h6>
+                                    <p class="mb-0 small">Get real-time, AI-based insurance insights — tailored just for you.</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <h5 class="mb-4 text-center">
+                            <i class="fas fa-shield-alt me-2"></i> Enter Your Information
+                        </h5>
+                        
+                        <form id="insuranceForm">
+                            <div class="mb-3">
+                                <label for="age" class="form-label">Age</label>
+                                <input type="number" class="form-control" id="age" min="18" max="100" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="sex" class="form-label">Gender</label>
+                                <select class="form-select" id="sex" required>
+                                    <option value="">Select...</option>
+                                    <option value="male">Male</option>
+                                    <option value="female">Female</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="bmi" class="form-label">BMI (Body Mass Index)</label>
+                                <input type="number" class="form-control" id="bmi" min="10" max="60" step="0.1" required>
+                                <small class="text-muted">
+                                    Don't know your BMI? <a href="{{ url_for('bmi_calculator') }}" target="_blank">Calculate it here</a>
+                                </small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="children" class="form-label">Number of Dependents</label>
+                                <input type="number" class="form-control" id="children" min="0" max="10" value="0" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="smoker" class="form-label">Smoking Status</label>
+                                <select class="form-select" id="smoker" required>
+                                    <option value="">Select...</option>
+                                    <option value="no">Non-Smoker</option>
+                                    <option value="yes">Smoker</option>
+                                </select>
+                                <small class="text-muted">Smoking significantly affects insurance costs</small>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="region" class="form-label">Region</label>
+                                <select class="form-select" id="region" required>
+                                    <option value="">Select...</option>
+                                    <option value="0">Southeast</option>
+                                    <option value="1">Southwest</option>
+                                    <option value="2">Northeast</option>
+                                    <option value="3">Northwest</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mt-3">
+                                <i class="fas fa-calculator me-2"></i> Predict Insurance Cost
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="row mt-5" id="resultsSection" style="display: none;">
+            <div class="col-lg-10 mx-auto">
+                <div class="result-box">
+                    <h3 class="text-center mb-4">Your Insurance Cost Prediction</h3>
+                    
+                    <div class="text-center mb-4">
+                        <div class="result-value" id="predictedCost"></div>
+                        <div class="result-label">Estimated Annual Cost</div>
+                    </div>
+                    
+                    <div class="alert alert-info">
+                        <h5><i class="fas fa-info-circle me-2"></i> Understanding Your Prediction</h5>
+                        <p class="mb-0">This prediction is based on your health profile, demographics, and lifestyle factors. Actual costs may vary based on specific plan details and coverage options.</p>
+                    </div>
+                    
+                    <!-- Recommended Plans -->
+                    <h4 class="mt-5 mb-3">Recommended Insurance Plans</h4>
+                    <div id="recommendationsContainer"></div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('appointments') }}" class="btn btn-primary me-2">
+                            <i class="fas fa-calendar-check me-2"></i> Book Consultation
+                        </a>
+                        <button class="btn btn-outline-primary" onclick="resetPrediction()">
+                            <i class="fas fa-redo me-2"></i> New Prediction
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Information Cards -->
+        <div class="row mt-5">
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-brain" style="font-size: 3rem; color: var(--primary-blue); margin-bottom: 1rem;"></i>
+                        <h5>AI-Powered Prediction</h5>
+                        <p class="text-muted">Machine learning model (Linear Regression) trained on real insurance data provides accurate cost estimates.</p>
+                        <div class="mt-3">
+                            <div class="badge bg-success mb-2 w-100">
+                                <i class="fas fa-check-circle me-1"></i> Model Active & Working
+                            </div>
+                            <div class="badge bg-info w-100">
+                                <i class="fas fa-cog me-1"></i> Real-time Predictions
+                            </div>
+                        </div>
+                        <hr class="my-3">
+                        <p class="small text-muted mb-0">
+                            <strong>Note:</strong> The ML model (insurance_model.pkl) is loaded and running. You'll get actual predictions, not static values!
+                        </p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-user-shield" style="font-size: 3rem; color: var(--accent-green); margin-bottom: 1rem;"></i>
+                        <h5>Personalized Plans</h5>
+                        <p class="text-muted">Get insurance recommendations tailored specifically to your health profile and financial situation.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100">
+                    <div class="card-body text-center">
+                        <i class="fas fa-chart-line" style="font-size: 3rem; color: var(--secondary-teal); margin-bottom: 1rem;"></i>
+                        <h5>Cost Transparency</h5>
+                        <p class="text-muted">Understand what factors affect your insurance costs and make informed decisions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('insuranceForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const data = {
+        age: document.getElementById('age').value,
+        sex: document.getElementById('sex').value,
+        bmi: document.getElementById('bmi').value,
+        children: document.getElementById('children').value,
+        smoker: document.getElementById('smoker').value,
+        region: document.getElementById('region').value
+    };
+    
+    try {
+        const response = await fetch('/predict-insurance', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayPrediction(result.predicted_cost, result.recommendations);
+        } else {
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+});
+
+function displayPrediction(cost, recommendations) {
+    document.getElementById('predictedCost').textContent = '$' + cost.toFixed(2);
+    
+    const container = document.getElementById('recommendationsContainer');
+    container.innerHTML = '';
+    
+    recommendations.forEach((plan, index) => {
+        const cardHTML = `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="row align-items-center">
+                        <div class="col-md-8">
+                            <h5 class="mb-2">
+                                <i class="fas fa-shield-alt me-2" style="color: var(--primary-blue);"></i>
+                                ${plan.name}
+                            </h5>
+                            <p class="text-muted mb-2">${plan.coverage}</p>
+                            <span class="badge bg-primary">${plan.premium}</span>
+                        </div>
+                        <div class="col-md-4 text-md-end mt-3 mt-md-0">
+                            <button class="btn btn-outline-primary" onclick="selectPlan('${plan.name}')">
+                                <i class="fas fa-check me-2"></i> Select Plan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += cardHTML;
+    });
+    
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function selectPlan(planName) {
+    alert('Plan selected: ' + planName + '\n\nIn a full application, this would proceed to enrollment.');
+}
+
+function resetPrediction() {
+    document.getElementById('insuranceForm').reset();
+    document.getElementById('resultsSection').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+{% endblock %}

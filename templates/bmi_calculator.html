@@ -1,0 +1,246 @@
+{% extends "base.html" %}
+
+{% block title %}BMI Calculator - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">BMI Calculator</h1>
+            <p class="section-subtitle">Calculate your Body Mass Index and get personalized health insights</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 mx-auto">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <form id="bmiForm">
+                            <div class="mb-3">
+                                <label for="age" class="form-label">
+                                    <i class="fas fa-calendar me-2"></i> Age (years)
+                                </label>
+                                <input type="number" class="form-control" id="age" min="1" max="120" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="height" class="form-label">
+                                    <i class="fas fa-ruler-vertical me-2"></i> Height (cm)
+                                </label>
+                                <input type="number" class="form-control" id="height" min="30" max="250" step="0.1" required>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="weight" class="form-label">
+                                    <i class="fas fa-weight me-2"></i> Weight (kg)
+                                </label>
+                                <input type="number" class="form-control" id="weight" min="20" max="300" step="0.1" required>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100">
+                                <i class="fas fa-calculator me-2"></i> Calculate BMI
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="row mt-5" id="resultsSection" style="display: none;">
+            <div class="col-lg-8 mx-auto">
+                <div class="result-box">
+                    <div class="text-center">
+                        <h3 class="mb-4">Your BMI Results</h3>
+                        <div class="result-value" id="bmiValue"></div>
+                        <div class="result-label mb-4" id="bmiCategory"></div>
+                        
+                        <!-- BMI Gauge Chart -->
+                        <div class="my-4">
+                            <canvas id="bmiChart" height="200"></canvas>
+                        </div>
+                        
+                        <div class="alert" id="bmiAdvice" role="alert">
+                            <h5 id="adviceTitle"></h5>
+                            <p id="adviceText" class="mb-0"></p>
+                        </div>
+                        
+                        <button class="btn btn-outline-primary mt-3" onclick="resetForm()">
+                            <i class="fas fa-redo me-2"></i> Calculate Again
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- BMI Information -->
+        <div class="row mt-5">
+            <div class="col-lg-10 mx-auto">
+                <div class="card">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4">Understanding BMI</h4>
+                        <div class="row">
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div style="width: 20px; height: 20px; background: #17a2b8; border-radius: 4px;" class="me-2"></div>
+                                    <strong>Underweight (BMI < 18.5)</strong>
+                                </div>
+                                <p class="text-muted ms-4">May indicate nutritional deficiency or other health issues.</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div style="width: 20px; height: 20px; background: #28a745; border-radius: 4px;" class="me-2"></div>
+                                    <strong>Normal (BMI 18.5-24.9)</strong>
+                                </div>
+                                <p class="text-muted ms-4">Indicates a healthy weight for your height.</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div style="width: 20px; height: 20px; background: #ffc107; border-radius: 4px;" class="me-2"></div>
+                                    <strong>Overweight (BMI 25-29.9)</strong>
+                                </div>
+                                <p class="text-muted ms-4">May increase risk of health problems.</p>
+                            </div>
+                            <div class="col-md-6 mb-3">
+                                <div class="d-flex align-items-center mb-2">
+                                    <div style="width: 20px; height: 20px; background: #dc3545; border-radius: 4px;" class="me-2"></div>
+                                    <strong>Obese (BMI ≥ 30)</strong>
+                                </div>
+                                <p class="text-muted ms-4">Higher risk of serious health conditions.</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let bmiChart = null;
+
+document.getElementById('bmiForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const age = document.getElementById('age').value;
+    const height = document.getElementById('height').value;
+    const weight = document.getElementById('weight').value;
+    
+    try {
+        const response = await fetch('/calculate-bmi', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ age, height, weight })
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayResults(result.data);
+        } else {
+            alert('Error calculating BMI: ' + result.error);
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+});
+
+function displayResults(data) {
+    document.getElementById('bmiValue').textContent = data.bmi;
+    document.getElementById('bmiCategory').textContent = data.category;
+    
+    const adviceDiv = document.getElementById('bmiAdvice');
+    adviceDiv.className = 'alert';
+    
+    if (data.bmi < 18.5) {
+        adviceDiv.classList.add('alert-info');
+    } else if (data.bmi < 25) {
+        adviceDiv.classList.add('alert-success');
+    } else if (data.bmi < 30) {
+        adviceDiv.classList.add('alert-warning');
+    } else {
+        adviceDiv.classList.add('alert-danger');
+    }
+    
+    document.getElementById('adviceTitle').innerHTML = '<i class="' + data.icon + ' me-2"></i> Health Advice';
+    document.getElementById('adviceText').textContent = data.advice;
+    
+    // Show results
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+    
+    // Create chart
+    createBMIChart(data.bmi);
+}
+
+function createBMIChart(bmi) {
+    const ctx = document.getElementById('bmiChart').getContext('2d');
+    
+    if (bmiChart) {
+        bmiChart.destroy();
+    }
+    
+    bmiChart = new Chart(ctx, {
+        type: 'bar',
+        data: {
+            labels: ['Underweight', 'Normal', 'Overweight', 'Obese'],
+            datasets: [{
+                label: 'BMI Range',
+                data: [18.5, 24.9, 29.9, 40],
+                backgroundColor: [
+                    'rgba(23, 162, 184, 0.2)',
+                    'rgba(40, 167, 69, 0.2)',
+                    'rgba(255, 193, 7, 0.2)',
+                    'rgba(220, 53, 69, 0.2)'
+                ],
+                borderColor: [
+                    'rgb(23, 162, 184)',
+                    'rgb(40, 167, 69)',
+                    'rgb(255, 193, 7)',
+                    'rgb(220, 53, 69)'
+                ],
+                borderWidth: 2
+            }, {
+                label: 'Your BMI',
+                data: [bmi < 18.5 ? bmi : null, 
+                       bmi >= 18.5 && bmi < 25 ? bmi : null,
+                       bmi >= 25 && bmi < 30 ? bmi : null,
+                       bmi >= 30 ? bmi : null],
+                backgroundColor: 'rgba(74, 144, 226, 0.8)',
+                borderColor: 'rgb(74, 144, 226)',
+                borderWidth: 2,
+                type: 'bar'
+            }]
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                y: {
+                    beginAtZero: true,
+                    max: 45
+                }
+            },
+            plugins: {
+                legend: {
+                    display: true
+                }
+            }
+        }
+    });
+}
+
+function resetForm() {
+    document.getElementById('bmiForm').reset();
+    document.getElementById('resultsSection').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+{% endblock %}

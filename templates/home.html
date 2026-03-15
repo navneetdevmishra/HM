@@ -1,0 +1,308 @@
+{% extends "base.html" %}
+
+{% block title %}Health Mate - Your Trusted Medical Insurance Advisor{% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero-section">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 hero-content">
+                <h1 class="hero-title fade-in">
+                    <span class="hero-title-primary">Your Health,</span>
+                    <span class="hero-title-accent">Our Priority</span>
+                </h1>
+                <p class="hero-subtitle">
+                    Welcome to Health Mate, your AI-powered medical insurance advisor. 
+                    We analyze your health profile to recommend the perfect insurance plans 
+                    tailored to your unique needs.
+                </p>
+                <div class="d-flex gap-3 mb-4 flex-wrap">
+                    <a href="{{ url_for('insurance_predictor') }}" class="btn btn-primary">
+                        <i class="fas fa-calculator me-2"></i> Get Insurance Quote
+                    </a>
+                    <a href="{{ url_for('health_assessment') }}" class="btn btn-outline-primary">
+                        <i class="fas fa-heartbeat me-2"></i> Health Assessment
+                    </a>
+                    <a href="https://www.google.com/maps/search/hospital+near+me" target="_blank" class="btn btn-outline-danger">
+                        <i class="fas fa-hospital me-2"></i> Find Hospital Near Me
+                    </a>
+                </div>
+                <div class="hero-stats">
+                    <div class="stat-item">
+                        <div class="stat-number">10K+</div>
+                        <div class="stat-label">Happy Users</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">500+</div>
+                        <div class="stat-label">Insurance Plans</div>
+                    </div>
+                    <div class="stat-item">
+                        <div class="stat-number">95%</div>
+                        <div class="stat-label">Satisfaction Rate</div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-6 text-center hero-image">
+                <div class="hero-illustration-container">
+                    <svg viewBox="0 0 500 500" class="hero-svg">
+                        <!-- Medical illustration placeholder - you can replace with actual Storyset SVG -->
+                        <circle cx="250" cy="250" r="200" fill="#E8F4FD" opacity="0.5"/>
+                        <circle cx="250" cy="250" r="150" fill="#4A90E2" opacity="0.2"/>
+                        <!-- Doctor illustration -->
+                        <g transform="translate(150, 150)">
+                            <!-- Medical cross -->
+                            <rect x="90" y="60" width="20" height="80" fill="#26A69A" rx="5"/>
+                            <rect x="70" y="80" width="60" height="20" fill="#26A69A" rx="5"/>
+                            <!-- Heart pulse -->
+                            <path d="M 50 140 Q 100 100 150 140 Q 100 180 50 140" fill="#F44336" opacity="0.7"/>
+                        </g>
+                    </svg>
+                    <div class="text-center mt-3">
+                        <p class="text-muted small">
+                            <i class="fas fa-shield-alt me-1"></i> Powered by AI-driven health analytics
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">Our Comprehensive Health Services</h2>
+        <p class="section-subtitle">
+            Everything you need to manage your health and find the perfect insurance coverage
+        </p>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h4>Insurance Prediction</h4>
+                    <p>AI-powered cost prediction and personalized insurance plan recommendations based on your health profile.</p>
+                    <a href="{{ url_for('insurance_predictor') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Get Started <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);">
+                        <i class="fas fa-weight"></i>
+                    </div>
+                    <h4>BMI Calculator</h4>
+                    <p>Instant BMI calculation with personalized health recommendations and wellness tips.</p>
+                    <a href="{{ url_for('bmi_calculator') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Calculate Now <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+                        <i class="fas fa-clipboard-check"></i>
+                    </div>
+                    <h4>Health Assessment</h4>
+                    <p>Comprehensive health evaluation with medical history analysis and personalized advice.</p>
+                    <a href="{{ url_for('health_assessment') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Start Assessment <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-3 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);">
+                        <i class="fas fa-diagnoses"></i>
+                    </div>
+                    <h4>Symptom Checker</h4>
+                    <p>Quick symptom analysis with AI-powered recommendations and severity assessment.</p>
+                    <a href="{{ url_for('symptom_checker') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Check Symptoms <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Additional Services -->
+<section class="section bg-light-blue">
+    <div class="container">
+        <div class="row g-4">
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #9C27B0 0%, #7B1FA2 100%);">
+                        <i class="fas fa-pills"></i>
+                    </div>
+                    <h4>Medication Tracker</h4>
+                    <p>Keep track of your medications, dosages, and refill schedules all in one place.</p>
+                    <a href="{{ url_for('medication_tracker') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Track Meds <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #00BCD4 0%, #0097A7 100%);">
+                        <i class="fas fa-calendar-check"></i>
+                    </div>
+                    <h4>Book Appointments</h4>
+                    <p>Schedule appointments with healthcare providers easily and manage your calendar.</p>
+                    <a href="{{ url_for('appointments') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Book Now <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card feature-card">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #FF5722 0%, #E64A19 100%);">
+                        <i class="fas fa-book-medical"></i>
+                    </div>
+                    <h4>Health Resources</h4>
+                    <p>Access educational content, health tips, and wellness guides from medical experts.</p>
+                    <a href="{{ url_for('health_resources') }}" class="btn btn-sm btn-outline-primary mt-2">
+                        Learn More <i class="fas fa-arrow-right ms-1"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- How It Works -->
+<section class="section">
+    <div class="container">
+        <h2 class="section-title">How It Works</h2>
+        <p class="section-subtitle">Simple steps to find your perfect health insurance plan</p>
+        
+        <div class="row g-4">
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="mb-3">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #4A90E2 0%, #26A69A 100%);">
+                        <i class="fas fa-user-edit"></i>
+                    </div>
+                </div>
+                <h5>1. Enter Your Details</h5>
+                <p class="text-muted">Provide your health information, medical history, and lifestyle details.</p>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="mb-3">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #66BB6A 0%, #4CAF50 100%);">
+                        <i class="fas fa-brain"></i>
+                    </div>
+                </div>
+                <h5>2. AI Analysis</h5>
+                <p class="text-muted">Our advanced AI analyzes your profile and predicts healthcare costs.</p>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="mb-3">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #FF9800 0%, #F57C00 100%);">
+                        <i class="fas fa-list-alt"></i>
+                    </div>
+                </div>
+                <h5>3. Get Recommendations</h5>
+                <p class="text-muted">Receive personalized insurance plan recommendations tailored for you.</p>
+            </div>
+            
+            <div class="col-lg-3 col-md-6 text-center">
+                <div class="mb-3">
+                    <div class="card-icon mx-auto" style="background: linear-gradient(135deg, #E91E63 0%, #C2185B 100%);">
+                        <i class="fas fa-check-circle"></i>
+                    </div>
+                </div>
+                <h5>4. Choose Your Plan</h5>
+                <p class="text-muted">Select the plan that best fits your needs and budget.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Why Choose Us -->
+<section class="section bg-soft-white">
+    <div class="container">
+        <h2 class="section-title">Why Choose Health Mate?</h2>
+        <p class="section-subtitle">We're committed to helping you make informed healthcare decisions</p>
+        
+        <div class="row g-4 mt-4">
+            <div class="col-lg-6">
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-check-circle" style="font-size: 2rem; color: var(--success-green);"></i>
+                    </div>
+                    <div>
+                        <h5>AI-Powered Accuracy</h5>
+                        <p class="text-muted">Our machine learning models are trained on thousands of health profiles to provide accurate cost predictions.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-shield-alt" style="font-size: 2rem; color: var(--primary-blue);"></i>
+                    </div>
+                    <div>
+                        <h5>Secure & Confidential</h5>
+                        <p class="text-muted">Your health data is encrypted and protected with industry-leading security measures.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-user-md" style="font-size: 2rem; color: var(--secondary-teal);"></i>
+                    </div>
+                    <div>
+                        <h5>Expert-Backed</h5>
+                        <p class="text-muted">Our recommendations are based on medical guidelines and expert insights.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6">
+                <div class="d-flex align-items-start mb-4">
+                    <div class="me-3">
+                        <i class="fas fa-clock" style="font-size: 2rem; color: var(--warning-orange);"></i>
+                    </div>
+                    <div>
+                        <h5>24/7 Availability</h5>
+                        <p class="text-muted">Access our platform anytime, anywhere to manage your health and insurance needs.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="text-center mt-5">
+            <a href="{{ url_for('about') }}" class="btn btn-primary">
+                <i class="fas fa-info-circle me-2"></i> Learn More About Us
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Emergency Banner -->
+<section class="section" style="background: linear-gradient(135deg, #F44336 0%, #E53935 100%); color: white;">
+    <div class="container text-center">
+        <h3 class="mb-3" style="color: white;">
+            <i class="fas fa-ambulance me-2"></i> Need Immediate Medical Attention?
+        </h3>
+        <p class="mb-4" style="font-size: 1.1rem;">Access emergency contacts and first aid information</p>
+        <a href="{{ url_for('emergency') }}" class="btn btn-light btn-lg">
+            <i class="fas fa-phone-alt me-2"></i> View Emergency Resources
+        </a>
+    </div>
+</section>
+{% endblock %}

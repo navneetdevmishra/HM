@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+
+{% block title %}Health Assessment - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">Comprehensive Health Assessment</h1>
+            <p class="section-subtitle">Get personalized health insights based on your medical history and lifestyle</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <form id="assessmentForm">
+                            <!-- Basic Information -->
+                            <h5 class="mb-3"><i class="fas fa-user me-2"></i> Basic Information</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="age" class="form-label">Age</label>
+                                    <input type="number" class="form-control" id="age" min="1" max="120" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="gender" class="form-label">Gender</label>
+                                    <select class="form-select" id="gender" required>
+                                        <option value="">Select...</option>
+                                        <option value="male">Male</option>
+                                        <option value="female">Female</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="height" class="form-label">Height (cm)</label>
+                                    <input type="number" class="form-control" id="height" min="30" max="250" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="weight" class="form-label">Weight (kg)</label>
+                                    <input type="number" class="form-control" id="weight" min="20" max="300" required>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- Medical History -->
+                            <h5 class="mb-3"><i class="fas fa-notes-medical me-2"></i> Medical History</h5>
+                            <div class="mb-3">
+                                <label class="form-label">Previous or Current Medical Conditions</label>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="diabetes" value="Diabetes">
+                                            <label class="form-check-label" for="diabetes">Diabetes</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="heartDisease" value="Heart Disease">
+                                            <label class="form-check-label" for="heartDisease">Heart Disease</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="hypertension" value="Hypertension">
+                                            <label class="form-check-label" for="hypertension">Hypertension</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="asthma" value="Asthma">
+                                            <label class="form-check-label" for="asthma">Asthma</label>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="obesity" value="Obesity">
+                                            <label class="form-check-label" for="obesity">Obesity</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="cancer" value="Cancer">
+                                            <label class="form-check-label" for="cancer">Cancer</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="arthritis" value="Arthritis">
+                                            <label class="form-check-label" for="arthritis">Arthritis</label>
+                                        </div>
+                                        <div class="form-check">
+                                            <input class="form-check-input" type="checkbox" id="noneCondition" value="None">
+                                            <label class="form-check-label" for="noneCondition">None</label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="medications" class="form-label">Current Medications</label>
+                                <textarea class="form-control" id="medications" rows="3" placeholder="List any medications you're currently taking..."></textarea>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <!-- Lifestyle Factors -->
+                            <h5 class="mb-3"><i class="fas fa-running me-2"></i> Lifestyle Factors</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label for="smoking" class="form-label">Do you smoke?</label>
+                                    <select class="form-select" id="smoking" required>
+                                        <option value="">Select...</option>
+                                        <option value="no">No</option>
+                                        <option value="yes">Yes</option>
+                                        <option value="former">Former Smoker</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="alcohol" class="form-label">Alcohol Consumption</label>
+                                    <select class="form-select" id="alcohol" required>
+                                        <option value="">Select...</option>
+                                        <option value="no">No</option>
+                                        <option value="occasional">Occasional</option>
+                                        <option value="yes">Regular</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label for="exercise" class="form-label">Exercise Frequency</label>
+                                    <select class="form-select" id="exercise" required>
+                                        <option value="">Select...</option>
+                                        <option value="none">None</option>
+                                        <option value="light">1-2 times/week</option>
+                                        <option value="moderate">3-4 times/week</option>
+                                        <option value="active">5+ times/week</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="diet" class="form-label">Diet Type</label>
+                                <select class="form-select" id="diet">
+                                    <option value="">Select...</option>
+                                    <option value="regular">Regular</option>
+                                    <option value="vegetarian">Vegetarian</option>
+                                    <option value="vegan">Vegan</option>
+                                    <option value="keto">Keto</option>
+                                    <option value="mediterranean">Mediterranean</option>
+                                </select>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mt-3">
+                                <i class="fas fa-check-circle me-2"></i> Get Health Assessment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Results Section -->
+        <div class="row mt-5" id="resultsSection" style="display: none;">
+            <div class="col-lg-10 mx-auto">
+                <div class="result-box">
+                    <h3 class="text-center mb-4">Your Health Assessment Results</h3>
+                    
+                    <div id="adviceContainer"></div>
+                    
+                    <div class="text-center mt-4">
+                        <a href="{{ url_for('insurance_predictor') }}" class="btn btn-primary me-2">
+                            <i class="fas fa-shield-alt me-2"></i> Get Insurance Quote
+                        </a>
+                        <button class="btn btn-outline-primary" onclick="resetAssessment()">
+                            <i class="fas fa-redo me-2"></i> New Assessment
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+document.getElementById('assessmentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const conditions = [];
+    document.querySelectorAll('input[type="checkbox"]:checked').forEach(cb => {
+        conditions.push(cb.value);
+    });
+    
+    const data = {
+        age: document.getElementById('age').value,
+        gender: document.getElementById('gender').value,
+        height: document.getElementById('height').value,
+        weight: document.getElementById('weight').value,
+        conditions: conditions,
+        medications: document.getElementById('medications').value,
+        smoking: document.getElementById('smoking').value,
+        alcohol: document.getElementById('alcohol').value,
+        exercise: document.getElementById('exercise').value,
+        diet: document.getElementById('diet').value
+    };
+    
+    try {
+        const response = await fetch('/submit-assessment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            displayAssessment(result.advice);
+        } else {
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+});
+
+function displayAssessment(adviceList) {
+    const container = document.getElementById('adviceContainer');
+    container.innerHTML = '';
+    
+    adviceList.forEach(advice => {
+        const alertClass = 'alert-' + advice.type;
+        const iconClass = advice.type === 'success' ? 'fa-check-circle' : 
+                         advice.type === 'danger' ? 'fa-exclamation-circle' :
+                         advice.type === 'warning' ? 'fa-exclamation-triangle' : 'fa-info-circle';
+        
+        const alertHTML = `
+            <div class="alert ${alertClass} mb-3">
+                <h5><i class="fas ${iconClass} me-2"></i> ${advice.title}</h5>
+                <p class="mb-0">${advice.message}</p>
+            </div>
+        `;
+        container.innerHTML += alertHTML;
+    });
+    
+    document.getElementById('resultsSection').style.display = 'block';
+    document.getElementById('resultsSection').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAssessment() {
+    document.getElementById('assessmentForm').reset();
+    document.getElementById('resultsSection').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+// Handle "None" checkbox
+document.getElementById('noneCondition').addEventListener('change', function() {
+    if (this.checked) {
+        document.querySelectorAll('input[type="checkbox"]:not(#noneCondition)').forEach(cb => {
+            cb.checked = false;
+        });
+    }
+});
+
+document.querySelectorAll('input[type="checkbox"]:not(#noneCondition)').forEach(cb => {
+    cb.addEventListener('change', function() {
+        if (this.checked) {
+            document.getElementById('noneCondition').checked = false;
+        }
+    });
+});
+</script>
+{% endblock %}

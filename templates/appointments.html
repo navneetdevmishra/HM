@@ -1,0 +1,210 @@
+{% extends "base.html" %}
+
+{% block title %}Book Appointment - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">Book Your Appointment</h1>
+            <p class="section-subtitle">Schedule a consultation with our healthcare professionals</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <form id="appointmentForm">
+                            <h5 class="mb-4"><i class="fas fa-user me-2"></i> Personal Information</h5>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="name" class="form-label">Full Name *</label>
+                                    <input type="text" class="form-control" id="name" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="email" class="form-label">Email Address *</label>
+                                    <input type="email" class="form-control" id="email" required>
+                                </div>
+                            </div>
+                            
+                            <hr class="my-4">
+                            
+                            <h5 class="mb-4"><i class="fas fa-calendar me-2"></i> Appointment Details</h5>
+                            
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="date" class="form-label">Preferred Date *</label>
+                                    <input type="date" class="form-control" id="date" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="time" class="form-label">Preferred Time *</label>
+                                    <select class="form-select" id="time" required>
+                                        <option value="">Select time...</option>
+                                        <option value="09:00">09:00 AM</option>
+                                        <option value="10:00">10:00 AM</option>
+                                        <option value="11:00">11:00 AM</option>
+                                        <option value="12:00">12:00 PM</option>
+                                        <option value="14:00">02:00 PM</option>
+                                        <option value="15:00">03:00 PM</option>
+                                        <option value="16:00">04:00 PM</option>
+                                        <option value="17:00">05:00 PM</option>
+                                    </select>
+                                </div>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="department" class="form-label">Department *</label>
+                                <select class="form-select" id="department" required>
+                                    <option value="">Select department...</option>
+                                    <option value="general">General Practice</option>
+                                    <option value="cardiology">Cardiology</option>
+                                    <option value="dermatology">Dermatology</option>
+                                    <option value="endocrinology">Endocrinology</option>
+                                    <option value="gastroenterology">Gastroenterology</option>
+                                    <option value="neurology">Neurology</option>
+                                    <option value="orthopedics">Orthopedics</option>
+                                    <option value="pediatrics">Pediatrics</option>
+                                    <option value="psychiatry">Psychiatry</option>
+                                    <option value="insurance">Insurance Consultation</option>
+                                </select>
+                            </div>
+                            
+                            <div class="mb-3">
+                                <label for="reason" class="form-label">Reason for Visit</label>
+                                <textarea class="form-control" id="reason" rows="4" placeholder="Please describe your symptoms or reason for consultation..."></textarea>
+                            </div>
+                            
+                            <div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" id="newPatient">
+                                <label class="form-check-label" for="newPatient">
+                                    I am a new patient
+                                </label>
+                            </div>
+                            
+                            <button type="submit" class="btn btn-primary w-100 mt-3">
+                                <i class="fas fa-calendar-check me-2"></i> Book Appointment
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <!-- Confirmation Message -->
+                <div class="card shadow-custom mt-4" id="confirmationCard" style="display: none;">
+                    <div class="card-body p-4 text-center">
+                        <i class="fas fa-check-circle" style="font-size: 4rem; color: var(--success-green); margin-bottom: 1rem;"></i>
+                        <h4 class="mb-3">Appointment Booked Successfully!</h4>
+                        <p class="text-muted mb-4">Your appointment has been scheduled. We've sent a confirmation email to your registered email address.</p>
+                        <div id="appointmentDetails" class="text-start bg-light-blue p-3 rounded mb-3"></div>
+                        <button class="btn btn-primary" onclick="resetAppointment()">
+                            <i class="fas fa-plus me-2"></i> Book Another Appointment
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 mt-4 mt-lg-0">
+                <div class="card shadow-custom mb-4">
+                    <div class="card-body">
+                        <h5><i class="fas fa-clock me-2"></i> Office Hours</h5>
+                        <hr>
+                        <p class="mb-2"><strong>Monday - Friday:</strong> 9:00 AM - 6:00 PM</p>
+                        <p class="mb-2"><strong>Saturday:</strong> 10:00 AM - 4:00 PM</p>
+                        <p class="mb-0"><strong>Sunday:</strong> Closed</p>
+                    </div>
+                </div>
+                
+                <div class="card shadow-custom mb-4">
+                    <div class="card-body">
+                        <h5><i class="fas fa-phone me-2"></i> Contact Us</h5>
+                        <hr>
+
+                        <p class="mb-0"><i class="fas fa-ambulance me-2 text-danger"></i> Emergency: 911</p>
+                    </div>
+                </div>
+                
+                <div class="card shadow-custom">
+                    <div class="card-body">
+                        <h5><i class="fas fa-info-circle me-2"></i> Before Your Visit</h5>
+                        <hr>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Arrive 15 minutes early</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Bring your ID and insurance card</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> List current medications</li>
+                            <li class="mb-0"><i class="fas fa-check text-success me-2"></i> Prepare questions for doctor</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+// Set minimum date to today
+document.getElementById('date').min = new Date().toISOString().split('T')[0];
+
+document.getElementById('appointmentForm').addEventListener('submit', async function(e) {
+    e.preventDefault();
+    
+    const data = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        phone: document.getElementById('phone').value,
+        date: document.getElementById('date').value,
+        time: document.getElementById('time').value,
+        department: document.getElementById('department').value,
+        reason: document.getElementById('reason').value
+    };
+    
+    try {
+        const response = await fetch('/book-appointment', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        });
+        
+        const result = await response.json();
+        
+        if (result.success) {
+            showConfirmation(result.appointment);
+        } else {
+            alert('Error: ' + result.error);
+        }
+    } catch (error) {
+        alert('Error: ' + error.message);
+    }
+});
+
+function showConfirmation(appointment) {
+    document.querySelector('.card').style.display = 'none';
+    
+    const detailsHTML = `
+        <p class="mb-2"><strong>Name:</strong> ${appointment.name}</p>
+        <p class="mb-2"><strong>Date:</strong> ${new Date(appointment.date).toLocaleDateString()}</p>
+        <p class="mb-2"><strong>Time:</strong> ${appointment.time}</p>
+        <p class="mb-2"><strong>Department:</strong> ${appointment.department}</p>
+        <p class="mb-0"><strong>Appointment ID:</strong> ${appointment.id}</p>
+    `;
+    
+    document.getElementById('appointmentDetails').innerHTML = detailsHTML;
+    document.getElementById('confirmationCard').style.display = 'block';
+    document.getElementById('confirmationCard').scrollIntoView({ behavior: 'smooth' });
+}
+
+function resetAppointment() {
+    document.getElementById('appointmentForm').reset();
+    document.querySelector('.card').style.display = 'block';
+    document.getElementById('confirmationCard').style.display = 'none';
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+</script>
+{% endblock %}

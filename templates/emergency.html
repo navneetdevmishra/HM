@@ -1,0 +1,279 @@
+{% extends "base.html" %}
+
+{% block title %}Emergency Resources - Health Mate{% endblock %}
+
+{% block content %}
+<section class="py-5" style="background: linear-gradient(135deg, #F44336 0%, #E53935 100%); color: white;">
+    <div class="container text-center">
+        <h1 class="display-4 mb-3"><i class="fas fa-ambulance me-3"></i> Emergency Resources</h1>
+        <p class="lead">Immediate help and critical health information when every second counts</p>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="alert alert-danger mb-5">
+            <h4><i class="fas fa-exclamation-triangle me-2"></i> When to Call 102</h4>
+            <p class="mb-0">Call emergency ambulance service immediately if you or someone else is experiencing:</p>
+            <ul class="mt-2 mb-0">
+                <li>Chest pain or pressure lasting more than a few minutes</li>
+                <li>Difficulty breathing or shortness of breath</li>
+                <li>Severe bleeding that won't stop</li>
+                <li>Loss of consciousness or fainting</li>
+                <li>Sudden severe headache or confusion</li>
+                <li>Poisoning or drug overdose</li>
+                <li>Severe allergic reaction</li>
+                <li>Stroke symptoms (face drooping, arm weakness, speech difficulty)</li>
+            </ul>
+        </div>
+        
+        <!-- Emergency Contacts -->
+        <div class="row g-4 mb-5">
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #F44336;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-phone-alt" style="font-size: 3rem; color: #F44336; margin-bottom: 1rem;"></i>
+                        <h4>Medical Emergency</h4>
+                        <h2 class="text-danger mb-3">102</h2>
+                        <p class="text-muted">National Ambulance Service</p>
+                        <a href="tel:102" class="btn btn-danger mt-2">
+                            <i class="fas fa-phone me-2"></i> Call 102
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #2196F3;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-shield-alt" style="font-size: 3rem; color: #2196F3; margin-bottom: 1rem;"></i>
+                        <h4>Police Emergency</h4>
+                        <h2 class="mb-3" style="color: #2196F3;">100</h2>
+                        <p class="text-muted">Police control room</p>
+                        <a href="tel:100" class="btn btn-primary mt-2">
+                            <i class="fas fa-phone me-2"></i> Call 100
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #FF5722;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-fire-extinguisher" style="font-size: 3rem; color: #FF5722; margin-bottom: 1rem;"></i>
+                        <h4>Fire Emergency</h4>
+                        <h2 class="mb-3" style="color: #FF5722;">101</h2>
+                        <p class="text-muted">Fire brigade services</p>
+                        <a href="tel:101" class="btn btn-danger mt-2">
+                            <i class="fas fa-phone me-2"></i> Call 101
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #9C27B0;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-female" style="font-size: 3rem; color: #9C27B0; margin-bottom: 1rem;"></i>
+                        <h4>Women Helpline</h4>
+                        <h2 class="mb-3" style="color: #9C27B0;">1091</h2>
+                        <p class="text-muted">Women in distress</p>
+                        <a href="tel:1091" class="btn mt-2" style="background-color: #9C27B0; color: white;">
+                            <i class="fas fa-phone me-2"></i> Call 1091
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #FF9800;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-child" style="font-size: 3rem; color: #FF9800; margin-bottom: 1rem;"></i>
+                        <h4>Child Helpline</h4>
+                        <h2 class="mb-3" style="color: #FF9800;">1098</h2>
+                        <p class="text-muted">Children in need</p>
+                        <a href="tel:1098" class="btn btn-warning mt-2">
+                            <i class="fas fa-phone me-2"></i> Call 1098
+                        </a>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4 col-md-6">
+                <div class="card h-100 text-center shadow-custom" style="border-top: 4px solid #4CAF50;">
+                    <div class="card-body p-4">
+                        <i class="fas fa-brain" style="font-size: 3rem; color: #4CAF50; margin-bottom: 1rem;"></i>
+                        <h4>Mental Health Helpline</h4>
+                        <h2 class="mb-3" style="color: #4CAF50;">08046110007</h2>
+                        <p class="text-muted">Vandrevala Foundation</p>
+                        <a href="tel:08046110007" class="btn btn-success mt-2">
+                            <i class="fas fa-phone me-2"></i> Call Now
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- First Aid Guide -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <h2 class="section-title mb-4">Quick First Aid Guide</h2>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-heart text-danger me-2"></i> Heart Attack</h5>
+                        <p><strong>Symptoms:</strong> Chest pain, shortness of breath, nausea, cold sweat</p>
+                        <p><strong>Action:</strong></p>
+                        <ol>
+                            <li>Call 102 immediately</li>
+                            <li>Have person sit down and rest</li>
+                            <li>Loosen tight clothing</li>
+                            <li>Give aspirin if not allergic (chew one tablet)</li>
+                            <li>Begin CPR if person becomes unconscious</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-brain text-primary me-2"></i> Stroke (F.A.S.T.)</h5>
+                        <p><strong>Symptoms:</strong></p>
+                        <ul>
+                            <li><strong>F</strong>ace: Drooping on one side</li>
+                            <li><strong>A</strong>rms: Weakness in one arm</li>
+                            <li><strong>S</strong>peech: Slurred or strange speech</li>
+                            <li><strong>T</strong>ime: Call 102 immediately</li>
+                        </ul>
+                        <p><strong>Action:</strong> Call 102. Note the time symptoms started. Do not give food or drink.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-cut text-danger me-2"></i> Severe Bleeding</h5>
+                        <p><strong>Action:</strong></p>
+                        <ol>
+                            <li>Call 102 for severe bleeding</li>
+                            <li>Apply direct pressure with clean cloth</li>
+                            <li>Maintain pressure for 10-15 minutes</li>
+                            <li>Elevate the injured area above heart if possible</li>
+                            <li>Don't remove cloth if blood soaks through, add more layers</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-burn text-warning me-2"></i> Burns</h5>
+                        <p><strong>Action:</strong></p>
+                        <ol>
+                            <li>Remove from heat source immediately</li>
+                            <li>Cool burn with running water for 10-20 minutes</li>
+                            <li>Cover with sterile, non-stick bandage</li>
+                            <li>Do NOT apply ice, butter, or ointments</li>
+                            <li>Seek medical help for severe burns</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-allergies text-danger me-2"></i> Allergic Reaction</h5>
+                        <p><strong>Severe symptoms:</strong> Difficulty breathing, swelling of throat, rapid pulse</p>
+                        <p><strong>Action:</strong></p>
+                        <ol>
+                            <li>Call 102 immediately for severe reactions</li>
+                            <li>Use EpiPen if available (inject into outer thigh)</li>
+                            <li>Have person lie down and elevate legs</li>
+                            <li>Loosen tight clothing</li>
+                            <li>Don't give anything to drink if breathing difficulty</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-6 mb-4">
+                <div class="card h-100 shadow-custom">
+                    <div class="card-body">
+                        <h5 class="mb-3"><i class="fas fa-lungs text-info me-2"></i> Choking</h5>
+                        <p><strong>Action (Heimlich Maneuver):</strong></p>
+                        <ol>
+                            <li>Stand behind the person</li>
+                            <li>Make a fist below ribcage, above navel</li>
+                            <li>Grasp fist with other hand</li>
+                            <li>Give quick upward thrusts</li>
+                            <li>Repeat until object is dislodged</li>
+                            <li>Call 102 if unsuccessful</li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Nearest Hospitals -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4"><i class="fas fa-map-marker-alt me-2"></i> Find Nearest Emergency Room</h4>
+                        <p class="text-muted mb-4">In an emergency, time is critical. Know the location of your nearest hospital emergency room.</p>
+
+                        <a href="https://www.google.com/maps/search/hospital+near+me" target="_blank" class="btn btn-primary mt-3">
+                            <i class="fas fa-map-marked-alt me-2"></i> Find Hospitals Near Me
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Emergency Preparedness -->
+        <div class="row mt-5">
+            <div class="col-12">
+                <div class="card shadow-custom bg-light-blue">
+                    <div class="card-body p-4">
+                        <h4 class="mb-4"><i class="fas fa-first-aid me-2"></i> Emergency Preparedness Checklist</h4>
+                        <div class="row">
+                            <div class="col-md-6">
+                                <h6>Essential First Aid Kit Items:</h6>
+                                <ul>
+                                    <li>Adhesive bandages (various sizes)</li>
+                                    <li>Sterile gauze pads</li>
+                                    <li>Adhesive tape</li>
+                                    <li>Antiseptic wipes</li>
+                                    <li>Antibiotic ointment</li>
+                                    <li>Pain relievers (aspirin, ibuprofen)</li>
+                                    <li>Scissors and tweezers</li>
+                                    <li>Thermometer</li>
+                                    <li>Disposable gloves</li>
+                                </ul>
+                            </div>
+                            <div class="col-md-6">
+                                <h6>Important Information to Have Ready:</h6>
+                                <ul>
+                                    <li>List of current medications</li>
+                                    <li>Allergies and medical conditions</li>
+                                    <li>Emergency contact numbers</li>
+                                    <li>Primary care physician contact</li>
+                                    <li>Health insurance information</li>
+                                    <li>Blood type</li>
+                                    <li>Recent medical history</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

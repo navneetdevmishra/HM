@@ -1,0 +1,160 @@
+{% extends "base.html" %}
+
+{% block title %}Medication Tracker - Health Mate{% endblock %}
+
+{% block content %}
+<section class="section bg-light-blue py-4">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="section-title mb-2">Medication Tracker</h1>
+            <p class="section-subtitle">Keep track of your medications, dosages, and schedules</p>
+        </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8">
+                <div class="card shadow-custom mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="mb-4"><i class="fas fa-plus-circle me-2"></i> Add New Medication</h5>
+                        <form id="medicationForm">
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="medName" class="form-label">Medication Name *</label>
+                                    <input type="text" class="form-control" id="medName" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="dosage" class="form-label">Dosage *</label>
+                                    <input type="text" class="form-control" id="dosage" placeholder="e.g., 500mg" required>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label for="frequency" class="form-label">Frequency *</label>
+                                    <select class="form-select" id="frequency" required>
+                                        <option value="">Select...</option>
+                                        <option value="Once daily">Once daily</option>
+                                        <option value="Twice daily">Twice daily</option>
+                                        <option value="Three times daily">Three times daily</option>
+                                        <option value="Every 4 hours">Every 4 hours</option>
+                                        <option value="Every 6 hours">Every 6 hours</option>
+                                        <option value="As needed">As needed</option>
+                                    </select>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label for="startDate" class="form-label">Start Date</label>
+                                    <input type="date" class="form-control" id="startDate">
+                                </div>
+                            </div>
+                            <div class="mb-3">
+                                <label for="notes" class="form-label">Notes</label>
+                                <textarea class="form-control" id="notes" rows="2" placeholder="Special instructions, side effects, etc."></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-primary">
+                                <i class="fas fa-plus me-2"></i> Add Medication
+                            </button>
+                        </form>
+                    </div>
+                </div>
+                
+                <div class="card shadow-custom">
+                    <div class="card-body p-4">
+                        <h5 class="mb-4"><i class="fas fa-list me-2"></i> Your Medications</h5>
+                        <div id="medicationList">
+                            <p class="text-muted text-center">No medications added yet. Add your first medication above.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="col-lg-4">
+                <div class="card shadow-custom mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3"><i class="fas fa-bell me-2"></i> Reminders</h5>
+                        <p class="text-muted">Set up medication reminders to never miss a dose.</p>
+                        <button class="btn btn-outline-primary w-100">
+                            <i class="fas fa-clock me-2"></i> Set Reminder
+                        </button>
+                    </div>
+                </div>
+                
+                <div class="card shadow-custom mb-4">
+                    <div class="card-body p-4">
+                        <h5 class="mb-3"><i class="fas fa-info-circle me-2"></i> Medication Tips</h5>
+                        <ul class="list-unstyled">
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Take medications at the same time daily</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Keep a list of all medications</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Check expiration dates regularly</li>
+                            <li class="mb-2"><i class="fas fa-check text-success me-2"></i> Store in cool, dry place</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let medications = [];
+
+document.getElementById('medicationForm').addEventListener('submit', function(e) {
+    e.preventDefault();
+    
+    const medication = {
+        id: Date.now(),
+        name: document.getElementById('medName').value,
+        dosage: document.getElementById('dosage').value,
+        frequency: document.getElementById('frequency').value,
+        startDate: document.getElementById('startDate').value,
+        notes: document.getElementById('notes').value
+    };
+    
+    medications.push(medication);
+    displayMedications();
+    this.reset();
+});
+
+function displayMedications() {
+    const container = document.getElementById('medicationList');
+    
+    if (medications.length === 0) {
+        container.innerHTML = '<p class="text-muted text-center">No medications added yet.</p>';
+        return;
+    }
+    
+    container.innerHTML = '';
+    medications.forEach(med => {
+        const medHTML = `
+            <div class="card mb-3">
+                <div class="card-body">
+                    <div class="d-flex justify-content-between align-items-start">
+                        <div>
+                            <h6 class="mb-1">${med.name}</h6>
+                            <p class="text-muted mb-1"><strong>Dosage:</strong> ${med.dosage}</p>
+                            <p class="text-muted mb-1"><strong>Frequency:</strong> ${med.frequency}</p>
+                            ${med.startDate ? `<p class="text-muted mb-1"><strong>Start Date:</strong> ${new Date(med.startDate).toLocaleDateString()}</p>` : ''}
+                            ${med.notes ? `<p class="text-muted mb-0"><strong>Notes:</strong> ${med.notes}</p>` : ''}
+                        </div>
+                        <button class="btn btn-sm btn-outline-danger" onclick="removeMedication(${med.id})">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        `;
+        container.innerHTML += medHTML;
+    });
+}
+
+function removeMedication(id) {
+    if (confirm('Are you sure you want to remove this medication?')) {
+        medications = medications.filter(med => med.id !== id);
+        displayMedications();
+    }
+}
+</script>
+{% endblock %}

@@ -1,0 +1,634 @@
+{% extends "base.html" %}
+
+{% block title %}Mental Health Support - Health Mate{% endblock %}
+
+{% block content %}
+<style>
+    /* Mental Health Page Specific Styles */
+    .mental-health-page {
+        font-family: 'Nunito', 'Poppins', sans-serif;
+    }
+    
+    .mental-health-page h1, 
+    .mental-health-page h2, 
+    .mental-health-page h3, 
+    .mental-health-page h4,
+    .mental-health-page h5,
+    .mental-health-page h6 {
+        font-family: 'Nunito', 'Poppins', sans-serif;
+        font-weight: 700;
+        border-radius: 20px;
+    }
+    
+    .mental-health-page p,
+    .mental-health-page li {
+        font-family: 'Nunito', sans-serif;
+        font-weight: 400;
+        line-height: 1.8;
+    }
+    
+    /* Animated Background */
+    .mental-health-hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        position: relative;
+        overflow: hidden;
+        padding: 4rem 0;
+        color: white;
+    }
+    
+    .floating-shapes {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+        top: 0;
+        left: 0;
+        overflow: hidden;
+        z-index: 0;
+    }
+    
+    .shape {
+        position: absolute;
+        border-radius: 50%;
+        opacity: 0.3;
+        animation: float 20s infinite ease-in-out;
+    }
+    
+    .shape-1 {
+        width: 80px;
+        height: 80px;
+        background: rgba(255, 255, 255, 0.2);
+        top: 20%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+    
+    .shape-2 {
+        width: 120px;
+        height: 120px;
+        background: rgba(255, 255, 255, 0.15);
+        top: 60%;
+        left: 80%;
+        animation-delay: 2s;
+    }
+    
+    .shape-3 {
+        width: 60px;
+        height: 60px;
+        background: rgba(255, 255, 255, 0.25);
+        top: 40%;
+        left: 50%;
+        animation-delay: 4s;
+    }
+    
+    .shape-4 {
+        width: 100px;
+        height: 100px;
+        background: rgba(255, 255, 255, 0.2);
+        top: 70%;
+        left: 20%;
+        animation-delay: 6s;
+    }
+    
+    @keyframes float {
+        0%, 100% {
+            transform: translateY(0) rotate(0deg);
+        }
+        25% {
+            transform: translateY(-30px) rotate(90deg);
+        }
+        50% {
+            transform: translateY(-50px) rotate(180deg);
+        }
+        75% {
+            transform: translateY(-30px) rotate(270deg);
+        }
+    }
+    
+    .mental-health-hero .container {
+        position: relative;
+        z-index: 1;
+    }
+    
+    /* Breathing Circle */
+    .breathing-circle-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        margin: 3rem 0;
+    }
+    
+    .breathing-circle {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        animation: breathe 4s infinite ease-in-out;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: white;
+        font-weight: 600;
+        font-size: 0.9rem;
+        text-align: center;
+    }
+    
+    @keyframes breathe {
+        0%, 100% {
+            transform: scale(1);
+            box-shadow: 0 10px 40px rgba(102, 126, 234, 0.3);
+        }
+        50% {
+            transform: scale(1.3);
+            box-shadow: 0 15px 60px rgba(102, 126, 234, 0.5);
+        }
+    }
+    
+    /* Mood Tracker Card */
+    .mood-card {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        border-radius: 25px;
+        padding: 2rem;
+        color: white;
+        box-shadow: 0 10px 30px rgba(240, 147, 251, 0.3);
+        transition: transform 0.3s ease;
+    }
+    
+    .mood-card:hover {
+        transform: translateY(-5px);
+    }
+    
+    .mood-options {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 1rem;
+        margin-top: 1.5rem;
+    }
+    
+    .mood-btn {
+        background: rgba(255, 255, 255, 0.2);
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 15px;
+        padding: 1.5rem 0.5rem;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-align: center;
+        color: white;
+        font-size: 2.5rem;
+    }
+    
+    .mood-btn:hover {
+        background: rgba(255, 255, 255, 0.3);
+        transform: scale(1.1);
+        border-color: white;
+    }
+    
+    .mood-btn.active {
+        background: rgba(255, 255, 255, 0.4);
+        border-color: white;
+        box-shadow: 0 5px 20px rgba(255, 255, 255, 0.4);
+    }
+    
+    .mood-label {
+        display: block;
+        font-size: 0.9rem;
+        margin-top: 0.5rem;
+        font-weight: 600;
+    }
+    
+    /* Response Message */
+    .mood-response {
+        margin-top: 1.5rem;
+        padding: 1.5rem;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 15px;
+        border-left: 4px solid white;
+        display: none;
+        animation: slideIn 0.5s ease;
+    }
+    
+    .mood-response.show {
+        display: block;
+    }
+    
+    @keyframes slideIn {
+        from {
+            opacity: 0;
+            transform: translateY(-10px);
+        }
+        to {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    }
+    
+    /* Helpline Cards */
+    .helpline-card {
+        background: white;
+        border-radius: 20px;
+        padding: 1.5rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        transition: all 0.3s ease;
+        height: 100%;
+    }
+    
+    .helpline-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    }
+    
+    .helpline-icon {
+        width: 60px;
+        height: 60px;
+        border-radius: 15px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 1.8rem;
+        margin-bottom: 1rem;
+    }
+    
+    .icon-purple {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+    }
+    
+    .icon-pink {
+        background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        color: white;
+    }
+    
+    .icon-blue {
+        background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        color: white;
+    }
+    
+    .icon-green {
+        background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        color: white;
+    }
+    
+    /* Soft Cards */
+    .soft-card {
+        background: white;
+        border-radius: 25px;
+        padding: 2rem;
+        box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+        margin-bottom: 2rem;
+    }
+    
+    /* Table Styling */
+    .helpline-table {
+        width: 100%;
+        border-collapse: separate;
+        border-spacing: 0 0.5rem;
+    }
+    
+    .helpline-table th {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 1rem;
+        font-weight: 600;
+        border-radius: 10px;
+    }
+    
+    .helpline-table td {
+        background: #f8f9ff;
+        padding: 1rem;
+        border-radius: 10px;
+    }
+    
+    .helpline-table tr {
+        transition: all 0.3s ease;
+    }
+    
+    .helpline-table tbody tr:hover td {
+        background: #e8ebff;
+        transform: scale(1.02);
+    }
+    
+    /* Call Button */
+    .call-btn {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 0.5rem 1.5rem;
+        border-radius: 20px;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+    }
+    
+    .call-btn:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        color: white;
+    }
+    
+    /* Wave Animation */
+    .wave-container {
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        overflow: hidden;
+        line-height: 0;
+    }
+    
+    .wave {
+        position: relative;
+        width: 100%;
+        height: 80px;
+    }
+    
+    @media (max-width: 768px) {
+        .mood-options {
+            grid-template-columns: repeat(2, 1fr);
+        }
+        
+        .breathing-circle {
+            width: 120px;
+            height: 120px;
+        }
+    }
+</style>
+
+<div class="mental-health-page">
+    <!-- Hero Section -->
+    <section class="mental-health-hero">
+        <div class="floating-shapes">
+            <div class="shape shape-1"></div>
+            <div class="shape shape-2"></div>
+            <div class="shape shape-3"></div>
+            <div class="shape shape-4"></div>
+        </div>
+        <div class="container text-center">
+            <h1 class="display-4 mb-3">
+                <i class="fas fa-brain me-3"></i>Your Mind Matters
+            </h1>
+            <p class="lead">We're here for you. Mental health is just as important as physical health.</p>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <!-- Breathing Exercise -->
+            <div class="text-center mb-5">
+                <h3 class="mb-3">Take a Moment to Breathe</h3>
+                <p class="text-muted">Follow the circle - Breathe in as it expands, breathe out as it contracts</p>
+                <div class="breathing-circle-container">
+                    <div class="breathing-circle">
+                        <span id="breathingText">Breathe In...</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mood Tracker Card -->
+            <div class="row mb-5">
+                <div class="col-lg-8 mx-auto">
+                    <div class="mood-card">
+                        <h3 class="text-center mb-2">How are you feeling today?</h3>
+                        <p class="text-center mb-3" style="opacity: 0.9;">It's okay to not be okay. We're here for you.</p>
+                        
+                        <div class="mood-options">
+                            <button class="mood-btn" onclick="selectMood('happy')">
+                                <div>😊</div>
+                                <span class="mood-label">Happy</span>
+                            </button>
+                            <button class="mood-btn" onclick="selectMood('okay')">
+                                <div>😐</div>
+                                <span class="mood-label">Okay</span>
+                            </button>
+                            <button class="mood-btn" onclick="selectMood('stressed')">
+                                <div>😞</div>
+                                <span class="mood-label">Stressed</span>
+                            </button>
+                            <button class="mood-btn" onclick="selectMood('depressed')">
+                                <div>😔</div>
+                                <span class="mood-label">Depressed</span>
+                            </button>
+                        </div>
+                        
+                        <div id="moodResponse" class="mood-response">
+                            <h5 id="responseTitle"></h5>
+                            <p id="responseMessage" class="mb-0"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Quick Support Helplines -->
+            <div class="soft-card">
+                <h3 class="text-center mb-4">
+                    <i class="fas fa-phone-volume me-2"></i>Quick Support Helplines
+                </h3>
+                <p class="text-center text-muted mb-4">
+                    You're not alone. Reach out for support anytime, day or night.
+                </p>
+                
+                <div class="table-responsive">
+                    <table class="helpline-table">
+                        <thead>
+                            <tr>
+                                <th>Support Type</th>
+                                <th>Organization</th>
+                                <th>Contact</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>24/7 Mental Health Helpline</strong></td>
+                                <td>Tele MANAS (Govt. of India)</td>
+                                <td>📞 14416 or 1-800-91-4416</td>
+                                <td>
+                                    <a href="tel:14416" class="call-btn">
+                                        <i class="fas fa-phone me-1"></i> Call Now
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Depression & Anxiety</strong></td>
+                                <td>AASRA Helpline</td>
+                                <td>📞 9820466726</td>
+                                <td>
+                                    <a href="tel:9820466726" class="call-btn">
+                                        <i class="fas fa-phone me-1"></i> Call Now
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Emotional Support</strong></td>
+                                <td>Snehi (Delhi)</td>
+                                <td>📞 91-22-2772 6771</td>
+                                <td>
+                                    <a href="tel:912227726771" class="call-btn">
+                                        <i class="fas fa-phone me-1"></i> Call Now
+                                    </a>
+                                </td>
+                            </tr>
+                            <tr>
+                                <td><strong>Youth Mental Health</strong></td>
+                                <td>iCall (TISS)</td>
+                                <td>📞 9152987821</td>
+                                <td>
+                                    <a href="tel:9152987821" class="call-btn">
+                                        <i class="fas fa-phone me-1"></i> Call Now
+                                    </a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- Mental Health Resources -->
+            <div class="row mt-5">
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="helpline-card text-center">
+                        <div class="helpline-icon icon-purple mx-auto">
+                            <i class="fas fa-brain"></i>
+                        </div>
+                        <h5>Understanding Mental Health</h5>
+                        <p class="text-muted">Learn about common mental health conditions and how to manage them.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="helpline-card text-center">
+                        <div class="helpline-icon icon-pink mx-auto">
+                            <i class="fas fa-heart"></i>
+                        </div>
+                        <h5>Self-Care Tips</h5>
+                        <p class="text-muted">Daily practices to improve your mental wellbeing and reduce stress.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="helpline-card text-center">
+                        <div class="helpline-icon icon-blue mx-auto">
+                            <i class="fas fa-users"></i>
+                        </div>
+                        <h5>Support Groups</h5>
+                        <p class="text-muted">Connect with others who understand what you're going through.</p>
+                    </div>
+                </div>
+                <div class="col-md-6 col-lg-3 mb-4">
+                    <div class="helpline-card text-center">
+                        <div class="helpline-icon icon-green mx-auto">
+                            <i class="fas fa-user-md"></i>
+                        </div>
+                        <h5>Professional Help</h5>
+                        <p class="text-muted">Find qualified therapists and psychiatrists in your area.</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Emergency Notice -->
+            <div class="alert alert-danger mt-4" style="border-radius: 20px; border: none;">
+                <h5 class="alert-heading">
+                    <i class="fas fa-exclamation-triangle me-2"></i>In Case of Emergency
+                </h5>
+                <p class="mb-2">
+                    If you or someone you know is in immediate danger or having thoughts of self-harm:
+                </p>
+                <ul class="mb-3">
+                    <li>Call the National Mental Health Helpline: <strong>14416</strong></li>
+                    <li>Contact Emergency Services: <strong>102</strong></li>
+                    <li>Go to the nearest hospital emergency room</li>
+                </ul>
+                <p class="mb-0">
+                    <strong>Remember:</strong> You are not alone. Help is available 24/7.
+                </p>
+            </div>
+
+            <!-- Positive Affirmations -->
+            <div class="soft-card mt-5 text-center" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+                <h4 class="mb-4">Daily Affirmations</h4>
+                <p class="lead mb-3" id="affirmation" style="font-size: 1.3rem; font-weight: 600;"></p>
+                <button class="btn btn-light" onclick="changeAffirmation()" style="border-radius: 20px;">
+                    <i class="fas fa-sync-alt me-2"></i>New Affirmation
+                </button>
+            </div>
+        </div>
+    </section>
+</div>
+
+<script>
+    // Breathing Exercise Text
+    let breathingPhase = 0;
+    const breathingTexts = ['Breathe In...', 'Hold...', 'Breathe Out...', 'Hold...'];
+    
+    setInterval(() => {
+        breathingPhase = (breathingPhase + 1) % 4;
+        document.getElementById('breathingText').textContent = breathingTexts[breathingPhase];
+    }, 4000);
+
+    // Mood Tracker
+    function selectMood(mood) {
+        // Remove active class from all buttons
+        document.querySelectorAll('.mood-btn').forEach(btn => btn.classList.remove('active'));
+        
+        // Add active class to clicked button
+        event.target.closest('.mood-btn').classList.add('active');
+        
+        // Show response
+        const responseDiv = document.getElementById('moodResponse');
+        const responseTitle = document.getElementById('responseTitle');
+        const responseMessage = document.getElementById('responseMessage');
+        
+        const responses = {
+            happy: {
+                title: '🌟 That\'s Wonderful!',
+                message: 'We\'re so glad you\'re feeling good today! Keep spreading that positive energy. Remember to cherish these moments and share your happiness with others.'
+            },
+            okay: {
+                title: '💙 That\'s Perfectly Fine',
+                message: 'It\'s okay to have days where you feel just "okay". You\'re doing great by checking in with yourself. Take things one step at a time.'
+            },
+            stressed: {
+                title: '🌿 It\'s Okay to Take a Break',
+                message: 'We see you, and we understand. Stress is tough, but you\'re tougher. Try our breathing exercise above, take a short walk, or reach out to someone you trust. You\'ve got this!'
+            },
+            depressed: {
+                title: '💜 We\'re Proud of You for Showing Up',
+                message: 'Thank you for being here and for being honest about how you feel. You are brave and strong. Please consider reaching out to one of our support helplines below. You don\'t have to go through this alone.'
+            }
+        };
+        
+        const response = responses[mood];
+        responseTitle.textContent = response.title;
+        responseMessage.textContent = response.message;
+        responseDiv.classList.add('show');
+        
+        // Scroll to response
+        responseDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    }
+
+    // Affirmations
+    const affirmations = [
+        'You are stronger than you know.',
+        'Your feelings are valid.',
+        'You deserve love and respect.',
+        'It\'s okay to ask for help.',
+        'You are doing your best.',
+        'Every day is a fresh start.',
+        'You are worthy of happiness.',
+        'Your mental health matters.',
+        'You are not alone in this.',
+        'You have the power to create change.',
+        'Be kind to yourself today.',
+        'Your story isn\'t over yet.',
+        'You are enough, just as you are.',
+        'Tomorrow is a new opportunity.',
+        'You are capable of amazing things.'
+    ];
+    
+    function changeAffirmation() {
+        const randomIndex = Math.floor(Math.random() * affirmations.length);
+        document.getElementById('affirmation').textContent = affirmations[randomIndex];
+    }
+    
+    // Set initial affirmation
+    changeAffirmation();
+</script>
+{% endblock %}
